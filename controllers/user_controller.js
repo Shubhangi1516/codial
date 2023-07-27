@@ -2,11 +2,12 @@ const User=require('../models/user');
 
 module.exports.profile=function(req,res){
     //res.end('<h1> User Profile</h1>');
-    /*
+    
     return res.render('user_profile',{
         title:"Home"
-    });*/
-
+    });
+    
+    /*  //Manual authentication
     if(req.cookies.user_id){
            User.findById(req.cookies.user_id,function(err,user){
             if(user){
@@ -20,12 +21,15 @@ module.exports.profile=function(req,res){
     }
     else{
         return res.redirect('/users/sign-in');
-    }
+    }*/
 
 }
 
 //render the sign up page
 module.exports.signUp=function(req,res){
+    if(req.isAuthenticated()){
+       return res.redirect('/users/profile');
+    }
     return res.render('user_sign_up',{
         title:"Codial | Sign up"
     })
@@ -33,6 +37,9 @@ module.exports.signUp=function(req,res){
 
 //render the sign in page
 module.exports.signIn=function(req,res){
+    if(req.isAuthenticated()){
+       return res.redirect('/users/profile');
+    }
     return res.render('user_sign_in',{
         title:"Codeial | Sign In"
     })
@@ -66,6 +73,8 @@ module.exports.create=function (req,res) {
 
 }
 
+/*
+ //Manual authentication via cookies 
 //sign in and create a session for the user
 module.exports.createSession=function(req,res){
     //steps to authenticate
@@ -91,6 +100,22 @@ module.exports.createSession=function(req,res){
         }
      })
 
+}*/
+
+
+//sign in and create a session for the user
+module.exports.createSession=function(req,res){
+    return res.redirect('/');
 }
 
+
+module.exports.destroySession=function(req,res){
+    /*
+    req.logout();
+    return res.redirect('/');*/
+    req.logout(function(err) {
+        if (err) { console.log('error while signing out'); return; }
+        res.redirect('/');
+      });
+}
 

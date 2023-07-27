@@ -1,0 +1,13 @@
+header{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(206, 167, 243);
+}
+
+header ul li{
+    display: inline;
+    float: right;
+    padding-right:10px;
+    margin-right:10px;
+    padding-bottom: 10px;
+}
