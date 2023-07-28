@@ -2,9 +2,12 @@ const User=require('../models/user');
 
 module.exports.profile=function(req,res){
     //res.end('<h1> User Profile</h1>');
-    
-    return res.render('user_profile',{
-        title:"Home"
+    //we are sending the "id" in profile route,hence it can be used here
+    User.findById(req.params.id,function(err,user){
+        return res.render('user_profile',{
+            title:"User Profile",
+            profile_user: user
+        });
     });
     
     /*  //Manual authentication
@@ -105,6 +108,8 @@ module.exports.createSession=function(req,res){
 
 //sign in and create a session for the user
 module.exports.createSession=function(req,res){
+    //this is in req,we need to send it to response, so we'll create custom middleware for it in middleware.js
+    req.flash('success','Logged in Successfully');
     return res.redirect('/');
 }
 
@@ -119,3 +124,13 @@ module.exports.destroySession=function(req,res){
       });
 }
 
+
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}

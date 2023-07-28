@@ -22,5 +22,5 @@ const postSchema=new mongoose.Schema({
     timestamps:true
 });
 
-const Post=mongoose.model('Post',postSchema);
-module.exports=Post;
+const Post=mongoose.model('Post',postSchema);   //makes a database named "Post" with the schema "postSchema"
+module.exports=Post;                            //export this database so it can be required by other folder

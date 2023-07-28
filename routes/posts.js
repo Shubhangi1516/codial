@@ -5,5 +5,5 @@ const postsController=require('../controllers/post_controller');
 
 //only show thecreate post form only if user is authenticated
 router.post('/create',passport.checkAuthentication,postsController.create);
-
+router.get('/destroy/:id',passport.checkAuthentication,postsController.destroy);
 module.exports=router;

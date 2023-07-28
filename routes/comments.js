@@ -5,5 +5,5 @@ const commentsController=require('../controllers/comments_controller');
 
 //only show thecreate post form only if user is authenticated
 router.post('/create',passport.checkAuthentication,commentsController.create);
-
+router.get('/destroy/:id',passport.checkAuthentication,commentsController.destroy);
 module.exports=router;
