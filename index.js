@@ -34,6 +34,8 @@ app.use(express.urlencoded());
 app.use(cookieParser());*/
 
 app.use(express.static('./assests'));
+//make the upload's path avl to browser
+app.use('/uploads',express.static(__dirname+'/uploads'));
 
 app.use(expressLayouts);
 
